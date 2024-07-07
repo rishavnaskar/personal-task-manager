@@ -1,8 +1,8 @@
 import { ThemeColorPaletteType } from "@/src/utils/types";
 
 export const lightTheme: ThemeColorPaletteType = {
-    colorAccentPrimary: "#118086",
-    colorAccentSecondary: "#118086",
+    colorAccentPrimary: "#B1C9E5",
+    colorAccentSecondary: "#B1C9E5",
     backgroundColor: "#FAFAFA",
     priority: {
         high: "#FF0000",
@@ -12,17 +12,17 @@ export const lightTheme: ThemeColorPaletteType = {
     textColor: "#484848",
     subTextColor: "#767676",
     chipColor: "#FFFFFF",
-    iconColor: "#118086",
+    iconColor: "#484848",
     delete: "#E53935",
     cardBackground: "#FFFFFF",
     bottomSheet: "#FFFFFF",
-    cardIcon: "#118086",
+    cardIcon: "#B1C9E5",
     fabGroup: "#FFFFFF",
 };
 
 export const darkTheme: ThemeColorPaletteType = {
     colorAccentPrimary: "#242529",
-    colorAccentSecondary: "#3399FF",
+    colorAccentSecondary: "#8D7DFA",
     backgroundColor: "#202125",
     priority: {
         high: "#FF0000",
@@ -36,6 +36,6 @@ export const darkTheme: ThemeColorPaletteType = {
     delete: "#E53935",
     cardBackground: "#242529",
     bottomSheet: "#242529",
-    cardIcon: "rgba(255,255,255,0.9)",
+    cardIcon: "#8D7DFA",
     fabGroup: "#3399ff",
 };
