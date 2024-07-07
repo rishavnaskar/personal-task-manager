@@ -6,6 +6,8 @@
 
 Personal Task Manager is a simple yet powerful tool to help you keep track of your tasks, manage your time effectively, and increase your productivity. Whether you are a student, a professional, or just someone who wants to stay organized, this task manager is designed to meet your needs.
 
+[**Android APK**](https://github.com/rishavnaskar/personal-task-manager/releases/download/v1/app-release.apk)
+
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
