@@ -1,3 +1,4 @@
+import notifee, { AndroidImportance, TimestampTrigger, TriggerType } from '@notifee/react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 import Snackbar from 'react-native-snackbar';
@@ -7,7 +8,7 @@ import { TaskItemType, UserDataStoreType, UserType } from "@/src/utils/types";
 
 export const getRandomId = () => Math.floor(Math.random() * 100).toString()
 
-const generateHash = (val: string) => {
+export const generateHash = (val: string) => {
     let hash = 0, chr = 0;
     if (val.length === 0) {
         return hash.toString();
@@ -153,16 +154,28 @@ export const logout = async () => {
     }
 };
 
-const scheduleNotification = (taskItem: TaskItemType) => {
-    // if (taskItem.taskTime) {
-    //     PushNotification.localNotificationSchedule({
-    //         channelId: "personal-task-manager",
-    //         title: 'Reminder for due task',
-    //         message: taskItem.taskTitle,
-    //         allowWhileIdle: true,
-    //         date: moment(taskItem.taskTime).toDate()
-    //     })
-    // }
+const scheduleNotification = async (taskItem: TaskItemType) => {
+    if (taskItem.taskTime) {
+        const channelId = await notifee.createChannel({
+            id: taskItem.id,
+            name: `${taskItem.id} Channel`,
+            importance: AndroidImportance.HIGH,
+            bypassDnd: true,
+        });
+        const trigger: TimestampTrigger = {
+            type: TriggerType.TIMESTAMP,
+            timestamp: moment(taskItem.taskTime).toDate().getTime(),
+        };
+        await notifee.createTriggerNotification({
+            title: 'Reminder for due task',
+            body: taskItem.taskTitle,
+            android: { channelId },
+        }, trigger);
+    }
+}
+
+const cancelScheduledNotification = async (id: string) => {
+    await notifee.cancelNotification(id)
 }
 
 export const addTask = async (taskItem: TaskItemType) => {
@@ -199,13 +212,19 @@ export const updateTask = async (task: TaskItemType) => {
         const tasks = await getTasks();
         const foundIndex = tasks.findIndex(val => val.id === task.id)
         if (foundIndex !== -1) {
+            if (tasks[foundIndex].taskTime) { 
+                cancelScheduledNotification(tasks[foundIndex].id)
+            }
             tasks[foundIndex] = task;
+            const tasksResponse = await setTasks(tasks)
+            scheduleNotification(task)
+            return tasksResponse;
+        } else {
+            throw new Error('Failed to find task')
         }
-        await setTasks(tasks)
-        return true;
     } catch (error) {
         errorHelper(error, 'Failed to update task');
-        return false;
+        return null;
     }
 };
 
