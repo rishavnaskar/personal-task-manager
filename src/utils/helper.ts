@@ -153,11 +153,24 @@ export const logout = async () => {
     }
 };
 
+const scheduleNotification = (taskItem: TaskItemType) => {
+    // if (taskItem.taskTime) {
+    //     PushNotification.localNotificationSchedule({
+    //         channelId: "personal-task-manager",
+    //         title: 'Reminder for due task',
+    //         message: taskItem.taskTitle,
+    //         allowWhileIdle: true,
+    //         date: moment(taskItem.taskTime).toDate()
+    //     })
+    // }
+}
+
 export const addTask = async (taskItem: TaskItemType) => {
     try {
         const tasks = await getTasks();
         tasks.push(taskItem);
         await setTasks(tasks)
+        scheduleNotification(taskItem)
         return true;
     } catch (error) {
         errorHelper(error, 'Failed to store task');
@@ -202,7 +215,6 @@ export const deleteTask = async (id: string) => {
         tasks = tasks.filter(val => val.id !== id)
         const response = await setTasks(tasks);
         Snackbar.show({ text: 'Deleted task successfully!' })
-        setTasks()
         return response;
     } catch (error) {
         errorHelper(error, "Failed to delete task.")
@@ -227,7 +239,7 @@ export const updateIsTaskCompleted = async (isCompleted: boolean, taskId: string
     }
 };
 
-export const deleteUser = async (navigation) => {
+export const deleteUser = async () => {
     try {
         let { usersResponse, loggedInUserResponse } = await getInitialData();
         if (usersResponse && loggedInUserResponse) {

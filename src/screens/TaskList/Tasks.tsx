@@ -17,7 +17,6 @@ import BottomSheet from "@/src/screens/TaskList/Components/BottomSheet";
 import FullCard from "@/src/screens/TaskList/Components/FullCard";
 import AppBar from "@/src/screens/TaskList/Components/Header";
 import TaskCard from "@/src/screens/TaskList/Components/TaskCard";
-import Colors from "@/src/theming/colors";
 import { SCREENS } from "@/src/utils/constants";
 import { deleteTask, getAllTasks } from "@/src/utils/helper";
 import { NavigationType, SortingType, SortModeType, TaskItemType, TaskListDisplayType } from "@/src/utils/types";
