@@ -87,7 +87,7 @@ export default function TaskCard({
                         {taskTitle + "  "}
                         <View
                             style={[
-                                priorityColor(priorityIs),
+                                priorityColor(priorityIs, theme),
                                 {
                                     height: 10,
                                     width: 10,

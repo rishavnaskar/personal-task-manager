@@ -107,7 +107,7 @@ export default function TaskCard({
                         <View
                             style={[
                                 styles.taskPriority,
-                                priorityColor(priorityIs),
+                                priorityColor(priorityIs, theme),
                             ]}
                         />
                     </View>

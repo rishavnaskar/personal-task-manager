@@ -1,25 +1,25 @@
-import Colors from "@/src/theming/colors";
+import { ThemeColorPaletteType } from "@/src/utils/types";
 
 /**
  * Sets the priority marker's color
  * @param {Number} priority
  */
 
-export const priorityColor = (priority: number) => {
+export const priorityColor = (priority: number, theme: ThemeColorPaletteType | null) => {
     if (priority === 1) {
         return {
-            backgroundColor: Colors.priorityHigh,
-            borderColor: Colors.priorityHigh,
+            backgroundColor: theme?.priority.high,
+            borderColor: theme?.priority.high,
         };
     } else if (priority === 2) {
         return {
-            backgroundColor: Colors.priorityMid,
-            borderColor: Colors.priorityMid,
+            backgroundColor: theme?.priority.mid,
+            borderColor: theme?.priority.mid,
         };
     } else if (priority === 3) {
         return {
-            backgroundColor: Colors.priorityLow,
-            borderColor: Colors.priorityLow,
+            backgroundColor: theme?.priority.low,
+            borderColor: theme?.priority.low,
         };
     } else {
         return {
@@ -29,22 +29,22 @@ export const priorityColor = (priority: number) => {
     }
 };
 
-export const priorityTextColor = (priority: number) => {
+export const priorityTextColor = (priority: number, theme: ThemeColorPaletteType | null) => {
     if (priority === 1) {
         return {
-            color: Colors.priorityHigh,
+            color: theme?.priority.high,
         };
     } else if (priority === 2) {
         return {
-            color: Colors.priorityMid,
+            color: theme?.priority.mid,
         };
     } else if (priority === 3) {
         return {
-            color: Colors.priorityLow,
+            color: theme?.priority.low,
         };
     } else {
         return {
-            color: Colors.textColor,
+            color: theme?.textColor,
         };
     }
 };

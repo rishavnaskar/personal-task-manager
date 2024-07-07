@@ -12,10 +12,10 @@ import Snackbar from "react-native-snackbar";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 import { AuthUserContext } from "@/src/navigation/AuthUserProvider";
-import Colors from "@/src/theming/colors";
+import { ThemeContext } from "@/src/navigation/ThemeProvider";
 import { SCREENS } from "@/src/utils/constants";
 import { loginUser } from "@/src/utils/helper";
-import { NavigationType } from "@/src/utils/types";
+import { NavigationType, ThemeColorPaletteType } from "@/src/utils/types";
 
 export default function LoginScreen({ navigation }: { navigation: NavigationType }) {
     const [email, setEmail] = useState("");
@@ -23,6 +23,9 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
     const [loading, setLoading] = useState(false);
 
     const { setUser } = useContext(AuthUserContext)
+    const { theme } = useContext(ThemeContext)
+
+    const styles = useStyles(theme)
 
     const handleLogin = async () => {
         setLoading(true);
@@ -43,8 +46,8 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
                     <TextInput
                         textContentType="emailAddress"
                         style={{
-                            color: "white",
-                            borderBottomColor: "white",
+                            color: theme?.chipColor,
+                            borderBottomColor: theme?.chipColor,
                             borderBottomWidth: 1,
                             paddingTop: 5,
                             paddingBottom: 5,
@@ -56,7 +59,7 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
                     <TextInput
                         secureTextEntry={true}
                         style={{
-                            color: "white",
+                            color: theme?.chipColor,
                             borderBottomColor: "white",
                             borderBottomWidth: 1,
                             paddingTop: 5,
@@ -82,7 +85,7 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
                     >
                         <ActivityIndicator
                             size="large"
-                            color="white"
+                            color={theme?.chipColor}
                             animating={loading}
                         />
                     </View>
@@ -94,7 +97,7 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
                     >
                         <Icon
                             name="angle-right"
-                            color={Colors.accentColor}
+                            color={theme?.colorAccentPrimary}
                             size={32}
                             style={styles.icon}
                         />
@@ -105,55 +108,57 @@ export default function LoginScreen({ navigation }: { navigation: NavigationType
     );
 }
 
-const styles = StyleSheet.create({
-    wrapper: {
-        display: "flex",
-        flex: 1,
-        backgroundColor: Colors.accentColor,
-    },
-    scrollViewWrapper: {
-        marginTop: 70,
-        flex: 1,
-    },
-    avoidView: {
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 20,
-        flex: 1,
-    },
-    loginHeader: {
-        fontSize: 28,
-        color: "white",
-        fontWeight: "300",
-        marginBottom: 40,
-    },
-    labelText: {
-        fontWeight: "700",
-        marginBottom: 10,
-        fontSize: 14,
-        color: "white",
-    },
-    buttonWrapper: {
-        alignItems: "flex-end",
-        right: 20,
-        bottom: 20,
-        paddingTop: 0,
-    },
-    button: {
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 50,
-        width: 60,
-        height: 60,
-        backgroundColor: "white",
-    },
-    icon: {
-        marginRight: -2,
-        marginTop: -2,
-    },
-    navigateText: {
-        color: "white",
-        fontSize: 15,
-        textAlign: "center",
-    },
-});
+const useStyles = (theme: ThemeColorPaletteType | null) => {
+    return StyleSheet.create({
+        wrapper: {
+            display: "flex",
+            flex: 1,
+            backgroundColor: theme?.colorAccentPrimary,
+        },
+        scrollViewWrapper: {
+            marginTop: 70,
+            flex: 1,
+        },
+        avoidView: {
+            paddingLeft: 30,
+            paddingRight: 30,
+            paddingTop: 20,
+            flex: 1,
+        },
+        loginHeader: {
+            fontSize: 28,
+            color: theme?.chipColor,
+            fontWeight: "300",
+            marginBottom: 40,
+        },
+        labelText: {
+            fontWeight: "700",
+            marginBottom: 10,
+            fontSize: 14,
+            color: theme?.chipColor,
+        },
+        buttonWrapper: {
+            alignItems: "flex-end",
+            right: 20,
+            bottom: 20,
+            paddingTop: 0,
+        },
+        button: {
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 50,
+            width: 60,
+            height: 60,
+            backgroundColor: theme?.chipColor,
+        },
+        icon: {
+            marginRight: -2,
+            marginTop: -2,
+        },
+        navigateText: {
+            color: theme?.chipColor,
+            fontSize: 15,
+            textAlign: "center",
+        },
+    })
+}

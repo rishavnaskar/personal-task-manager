@@ -11,7 +11,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import SlidingUpPanel from "rn-sliding-up-panel";
 
 import { ThemeContext } from "@/src/navigation/ThemeProvider";
-import Colors from "@/src/theming/colors";
 import { SortingType, SortModeType, TaskListDisplayType } from "@/src/utils/types";
 
 const initialLayout = { width: Dimensions.get("window").width };
@@ -72,7 +71,7 @@ const BottomSheet = ({
                         marginRight: 15, elevation: 1,
                     },
                     prioFilter === 1 && {
-                        backgroundColor: "#A80000",
+                        backgroundColor: theme?.priority.high,
                     },
                     ]}
                     icon="priority-high"
@@ -87,7 +86,7 @@ const BottomSheet = ({
                         marginRight: 15, elevation: 1,
                     },
                     prioFilter === 2 && {
-                        backgroundColor: Colors.priorityMid,
+                        backgroundColor: theme?.priority.mid,
                     },
                     ]}
                     icon="sort"
@@ -102,7 +101,7 @@ const BottomSheet = ({
                         marginRight: 15, elevation: 1,
                     },
                     prioFilter === 3 && {
-                        backgroundColor: Colors.priorityLow,
+                        backgroundColor: theme?.priority.low,
                     },
                     ]}
                     icon="priority-low"

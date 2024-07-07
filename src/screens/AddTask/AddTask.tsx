@@ -16,9 +16,8 @@ import BottomSheet from "rn-sliding-up-panel";
 
 import { ThemeContext } from "@/src/navigation/ThemeProvider";
 import Appbar from "@/src/screens/AddTask/Components/AddTaskHeader";
-import Colors from "@/src/theming/colors";
 import { addTask, getRandomId } from "@/src/utils/helper";
-import { NavigationType } from "@/src/utils/types";
+import { NavigationType, ThemeColorPaletteType } from "@/src/utils/types";
 
 export default function AddTask({ navigation }: { navigation: NavigationType }) {
     const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -30,6 +29,8 @@ export default function AddTask({ navigation }: { navigation: NavigationType }) 
     const bottomSheetRef = useRef<BottomSheet>(null)
 
     const { theme } = useContext(ThemeContext);
+
+    const styles = useStyles(theme)
 
     const showDialog = () => {
         bottomSheetRef.current?.show({ toValue: 220, velocity: 0.8 })
@@ -187,59 +188,61 @@ export default function AddTask({ navigation }: { navigation: NavigationType }) 
     );
 }
 
-const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        padding: 10,
-    },
-    dateInput: { marginHorizontal: 10, paddingTop: 5 },
-    titleInput: {
-        fontSize: 30,
-        fontWeight: "bold",
-        paddingVertical: 15,
-        marginHorizontal: 10,
-        borderBottomWidth: 1.2,
-        borderBottomColor: "#E8E8E8",
-    },
-    contentInput: {
-        paddingTop: 10,
-        marginHorizontal: 10,
-        fontSize: 18,
-        lineHeight: 29,
-    },
-    checkBox: {
-        borderRadius: 10,
-        borderWidth: 0,
-    },
-    bottomSheetContainer: {
-        flex: 1,
-        paddingTop: 20,
-        paddingBottom: 8,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        elevation: 10,
-    },
-    priorityHeading: {
-        fontWeight: "bold",
-        fontSize: 15,
-        color: Colors.accentColor,
-        paddingHorizontal: 20,
-        // paddingBottom: 5,
-    },
-    setPriority: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingHorizontal: 20,
-    },
-    indicator: {
-        position: "absolute",
-        justifyContent: "center",
-        alignSelf: "center",
-        width: 40,
-        height: 5,
-        backgroundColor: "rgba(0,0,0,0.75)",
-        borderRadius: 25,
-        top: 7,
-    },
-});
+const useStyles = (theme: ThemeColorPaletteType | null) => {
+    return StyleSheet.create({
+        mainContainer: {
+            flex: 1,
+            padding: 10,
+        },
+        dateInput: { marginHorizontal: 10, paddingTop: 5 },
+        titleInput: {
+            fontSize: 30,
+            fontWeight: "bold",
+            paddingVertical: 15,
+            marginHorizontal: 10,
+            borderBottomWidth: 1.2,
+            borderBottomColor: "#E8E8E8",
+        },
+        contentInput: {
+            paddingTop: 10,
+            marginHorizontal: 10,
+            fontSize: 18,
+            lineHeight: 29,
+        },
+        checkBox: {
+            borderRadius: 10,
+            borderWidth: 0,
+        },
+        bottomSheetContainer: {
+            flex: 1,
+            paddingTop: 20,
+            paddingBottom: 8,
+            borderTopLeftRadius: 15,
+            borderTopRightRadius: 15,
+            elevation: 10,
+        },
+        priorityHeading: {
+            fontWeight: "bold",
+            fontSize: 15,
+            color: theme?.colorAccentPrimary,
+            paddingHorizontal: 20,
+            // paddingBottom: 5,
+        },
+        setPriority: {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 20,
+        },
+        indicator: {
+            position: "absolute",
+            justifyContent: "center",
+            alignSelf: "center",
+            width: 40,
+            height: 5,
+            backgroundColor: "rgba(0,0,0,0.75)",
+            borderRadius: 25,
+            top: 7,
+        },
+    });
+};

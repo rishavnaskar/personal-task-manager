@@ -235,6 +235,7 @@ const TasksList = ({ navigation }: { navigation: NavigationType }) => {
                     action={{
                         label: "Delete Task",
                         onPress: handleDeleteTask,
+                        textColor: theme?.chipColor
                     }}
                     style={{ backgroundColor: theme?.colorAccentPrimary }}
                     theme={{ colors: { accent: "white" } }}
