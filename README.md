@@ -72,6 +72,12 @@ To get started with the Personal Task Manager, follow these steps:
 
 [*Find more screenshots here*](screenshots/)
 
+## Testing
+
+Have ran some tests on the app
+
+<img src='https://github.com/rishavnaskar/personal-task-manager/assets/59786899/ab74c31f-99d0-46f6-bf7e-d916b76b6a52' width=400 />
+
 ## Contributing
 
 We welcome contributions from the community! To contribute to the Personal Task Manager project, follow these steps:
