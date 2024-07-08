@@ -53,6 +53,7 @@ export default function TaskItem({ route, navigation }: Props) {
         const response = await deleteTask(id);
         if (response) {
             hideDialog();
+            navigation.goBack()
         } else {
             console.error('Failed to delete')
         }
