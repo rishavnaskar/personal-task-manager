@@ -1,3 +1,4 @@
+import notifee, { AuthorizationStatus } from '@notifee/react-native';
 import moment from "moment";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
@@ -162,6 +163,25 @@ const TasksList = ({ navigation }: { navigation: NavigationType }) => {
                 onDismissSnackBar={onDismissSnackBar} />
         );
     };
+
+    useEffect(() => {
+        const getNotificationPermissions = async () => {
+            const settings = await notifee.requestPermission();
+            if (settings.authorizationStatus !== AuthorizationStatus.AUTHORIZED) {
+                Snackbar.show({
+                    duration: Snackbar.LENGTH_LONG,
+                    text: 'Please grant notifications permission to show upcoming task notifications',
+                    action: {
+                        text: 'Notification Settings',
+                        onPress: async () => {
+                            await notifee.openNotificationSettings()
+                        }
+                    }
+                })
+            }
+        }
+        getNotificationPermissions()
+    }, [])
 
     useEffect(() => {
         navigation.addListener('focus', getInitalData)
